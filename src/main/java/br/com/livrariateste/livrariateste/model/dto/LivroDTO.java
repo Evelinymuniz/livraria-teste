@@ -21,7 +21,6 @@ public class LivroDTO {
     private String sumario;
     private Double preco;
     @NotBlank(message = "INFORME A QUANTIDADE DE PAGINAS")
-    @Size(min = 100)
     private String paginas;
     @NotBlank(message = "ISBN NAO PODE FICAR EM BRANCO")
     private Long isbn;
