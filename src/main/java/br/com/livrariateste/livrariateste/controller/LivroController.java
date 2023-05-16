@@ -20,6 +20,12 @@ import org.springframework.web.bind.annotation.*;
         @Autowired
         private LivroServiceImpl livroService;
 
+
+        @GetMapping(value = "/{id}")
+        public ResponseEntity<Object> findById(@PathVariable Integer id) {
+            return ResponseEntity.ok().body((livroService.findById(id)));
+        }
+
         @GetMapping
         public ResponseEntity<Object> findAll() {
             try {
