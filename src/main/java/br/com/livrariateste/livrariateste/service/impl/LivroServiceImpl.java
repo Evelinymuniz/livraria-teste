@@ -5,6 +5,8 @@ import br.com.livrariateste.livrariateste.model.entity.LivroEntity;
 import br.com.livrariateste.livrariateste.model.mapper.LivroMapper;
 import br.com.livrariateste.livrariateste.repository.LivroRepository;
 import br.com.livrariateste.livrariateste.service.LivroServiceInterface;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +14,8 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@AllArgsConstructor
+@NoArgsConstructor
 public class LivroServiceImpl implements LivroServiceInterface {
 
     @Autowired
@@ -20,15 +24,15 @@ public class LivroServiceImpl implements LivroServiceInterface {
     @Autowired
     private LivroMapper mapper;
 
-
     @Override
-    public LivroEntity pegarPorId(Integer id) {
+    public LivroEntity findById(Integer id) {
         Optional<LivroEntity> obj = repository.findById(id);
         return obj.orElseThrow();
     }
 
     @Override
     public List<LivroEntity> findAll() {
+
         return repository.findAll();
     }
 
@@ -39,8 +43,7 @@ public class LivroServiceImpl implements LivroServiceInterface {
 
     @Override
     public void delete(Integer id) {
-        pegarPorId(id);
+        findById(id);
         repository.deleteById(id);
-
     }
 }
