@@ -2,11 +2,9 @@ package br.com.livrariateste.livrariateste.controller;
 
 import br.com.livrariateste.livrariateste.model.dto.LivroDTO;
 import br.com.livrariateste.livrariateste.model.dto.MensagemDTO;
-import br.com.livrariateste.livrariateste.service.LivroService;
+import br.com.livrariateste.livrariateste.service.impl.LivroServiceImpl;
 import jakarta.persistence.EntityNotFoundException;
-import jakarta.validation.Valid;
 import lombok.Data;
-
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,12 +18,12 @@ import org.springframework.web.bind.annotation.*;
     @Slf4j
     public class LivroController {
         @Autowired
-        private LivroService livroService;
+        private LivroServiceImpl livroService;
 
         @GetMapping
-        public ResponseEntity<Object> listar() {
+        public ResponseEntity<Object> findAll() {
             try {
-                return ResponseEntity.ok(livroService.listar());
+                return ResponseEntity.ok(livroService.findAll());
             } catch (Exception ex) {
                 log.error(ex.getMessage());
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MensagemDTO(ex.getMessage()));
@@ -33,44 +31,23 @@ import org.springframework.web.bind.annotation.*;
 
         }
 
-        @GetMapping("/{id}")
-        public ResponseEntity<Object> pegarUm(@PathVariable("id") Integer id) {
-            try {
-                return ResponseEntity.ok(livroService.pegarPorId(id));
-            } catch (EntityNotFoundException ex) {
-                log.error(ex.getMessage());
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MensagemDTO(ex.getMessage()));
-
-            }
-
-        }
 
         @PostMapping
-        public ResponseEntity<Object> criar(@RequestBody LivroDTO livroDTO) {
+        public ResponseEntity<Object> create(@RequestBody LivroDTO livroDTO) {
             try {
-                return ResponseEntity.status(HttpStatus.CREATED).body(livroService.criar(livroDTO));
+                return ResponseEntity.status(HttpStatus.CREATED).body(livroService.create(livroDTO));
             } catch (Exception ex) {
                 log.error(ex.getMessage());
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MensagemDTO(ex.getMessage()));
 
             }
 
-        }
-
-        @PutMapping("/{id}")
-        public ResponseEntity<Object> editar(@RequestBody @Valid LivroDTO livroDTO, @PathVariable("id") Integer id) {
-            try {
-                return ResponseEntity.ok(livroService.editar(livroDTO, id));
-            } catch (Exception ex) {
-                log.error(ex.getMessage());
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MensagemDTO(ex.getMessage()));
-            }
         }
 
         @DeleteMapping("/{id}")
-        public ResponseEntity<Object> deletar(@PathVariable("id") Integer id) {
+        public ResponseEntity<Object> delete(@PathVariable("id") Integer id) {
             try {
-                livroService.deletar(id);
+                livroService.delete(id);
                 return ResponseEntity.ok(new MensagemDTO("Livro com id " + id + " removido com sucesso!"));
             } catch (EntityNotFoundException ex) {
                 log.error(ex.getMessage());
@@ -82,21 +59,7 @@ import org.springframework.web.bind.annotation.*;
             }
         }
 
-       /* @GetMapping("/filter")
-        public ResponseEntity<Object> pegarPorNomeIbsn(
-                @RequestParam(name = "titulo", defaultValue = "") String titulo,
-                @RequestParam(name = "ibsn", defaultValue = "") Long ibsn) {
-            try {
-                return ResponseEntity.ok(livroService.filtrar(titulo, ibsn));
 
-            } catch (Exception ex) {
-                log.error(ex.getMessage());
-                return ResponseEntity
-                        .status(HttpStatus.BAD_REQUEST)
-                        .body(new MensagemDTO(ex.getMessage()));
-            }
-
-        }*/
 
     }
 

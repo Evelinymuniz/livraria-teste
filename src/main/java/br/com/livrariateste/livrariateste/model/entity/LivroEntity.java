@@ -27,7 +27,6 @@ public class LivroEntity {
     private String sumario;
     private Double preco;
     @NonNull
-    @Size(min = 100)
     private String paginas;
     @NonNull
     private Long isbn;

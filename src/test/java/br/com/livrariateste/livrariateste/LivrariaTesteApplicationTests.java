@@ -6,8 +6,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class LivrariaTesteApplicationTests {
 
+
     @Test
-    void contextLoads() {
+    void main() {
+
+        LivrariaTesteApplication.main(new String[] {});
     }
 
 }
+
