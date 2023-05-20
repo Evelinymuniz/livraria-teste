@@ -21,10 +21,10 @@ import org.springframework.web.bind.annotation.*;
         private LivroServiceImpl livroService;
 
 
-        @GetMapping(value = "/{id}")
+      /*  @GetMapping(value = "/{id}")
         public ResponseEntity<Object> findById(@PathVariable Integer id) {
             return ResponseEntity.ok().body((livroService.findById(id)));
-        }
+        }*/
 
         @GetMapping
         public ResponseEntity<Object> findAll() {
@@ -36,7 +36,6 @@ import org.springframework.web.bind.annotation.*;
             }
 
         }
-
 
         @PostMapping
         public ResponseEntity<Object> create(@RequestBody LivroDTO livroDTO) {
@@ -50,7 +49,7 @@ import org.springframework.web.bind.annotation.*;
 
         }
 
-        @DeleteMapping("/{id}")
+       /* @DeleteMapping("/{id}")
         public ResponseEntity<Object> delete(@PathVariable("id") Integer id) {
             try {
                 livroService.delete(id);
@@ -63,9 +62,7 @@ import org.springframework.web.bind.annotation.*;
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MensagemDTO(ex.getMessage()));
 
             }
-        }
-
-
+        }*/
 
     }
 
